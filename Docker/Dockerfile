@@ -16,7 +16,7 @@ FROM golang:1.15-stretch
 #Install Dependencies
 
 RUN apt-get update && \
-    apt-get -y install wget nginx mongodb php-fpm nginx git
+    apt-get -y install wget nginx mongodb php7.0-fpm nginx git
 
 # Create SSL Certs for Nginx
 RUN mkdir /etc/nginx/ssl \
