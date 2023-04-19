@@ -15,13 +15,13 @@ This will take a little, but at the end we will have and image with the tag gosi
 ***Running the Container***
 =========================
 ```
-docker run -i -t -p 443:443 gosint
+docker run -i -t -p 8443:443 gosint
 ```
 
 ***Set Volume for Persistent Data***
 =========================
 ```
-docker run -i -t -p 443:443 -v /your/persistent/data/path:/var/lib/mongodb gosint
+docker run -i -t -p 8443:443 -v /your/persistent/data:/var/lib/mongodb/data gosint
 ```
 
 
