@@ -4,7 +4,7 @@
 
 /etc/init.d/nginx start
 /etc/init.d/mongodb start
-/etc/init.d/php5-fpm start
+/etc/init.d/php7.0-fpm start
 
 #create user for UI Access
 
