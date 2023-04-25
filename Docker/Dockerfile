@@ -36,9 +36,10 @@ WORKDIR /go/src/
 #Clone GOSINT Repository
 
 RUN git clone https://github.com/ciscocsirt/GOSINT.git
-RUN git checkout 28730c6506366f243edc757a03152d1c7af1a0ca
 
 WORKDIR /go/src/GOSINT/
+
+RUN git checkout 28730c6506366f243edc757a03152d1c7af1a0ca
 
 COPY gosint.sh gosint.sh
 RUN chmod 655 gosint.sh
