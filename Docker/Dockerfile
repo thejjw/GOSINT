@@ -11,7 +11,7 @@
 #   sudo docker run -it -p 443:443 gosint
 
 
-FROM golang:1.15-stretch
+FROM golang:1.18.3-stretch
 
 #Install Dependencies
 
