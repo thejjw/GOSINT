@@ -3,7 +3,8 @@
 #
 # https://github.com/ciscocsirt/GOSINT
 #
-# Written by: Jason Soto @jsitech
+# Original Written by: Jason Soto @jsitech
+# Updated by @thejjw
 # 
 # Usage:
 #
@@ -11,12 +12,14 @@
 #   sudo docker run -it -p 443:443 gosint
 
 
-FROM golang:1.18.3-stretch
+FROM golang:1.16-stretch
 
 #Install Dependencies
 
-RUN apt-get update && \
-    apt-get -y install wget nginx mongodb php7.0-fpm nginx git
+RUN echo "deb http://archive.debian.org/debian-archive/debian/ stretch contrib main non-free" > /etc/apt/sources.list
+
+RUN apt-get update \
+    && apt-get -y install wget nginx mongodb php7.0-fpm nginx git
 
 # Create SSL Certs for Nginx
 RUN mkdir /etc/nginx/ssl \
@@ -26,18 +29,25 @@ RUN mkdir /etc/nginx/ssl \
 ADD default.conf /etc/nginx/sites-available/default
 
 RUN go get github.com/tools/godep \ 
-    && go install github.com/tools/godep
+    && go install github.com/tools/godep@latest
 
 WORKDIR /go/src/
 
 #Clone GOSINT Repository
 
-RUN git clone https://github.com/ciscocsirt/GOSINT
+RUN git clone https://github.com/ciscocsirt/GOSINT.git
+RUN git checkout 28730c6506366f243edc757a03152d1c7af1a0ca
 
 WORKDIR /go/src/GOSINT/
 
 COPY gosint.sh gosint.sh
 RUN chmod 655 gosint.sh
+
+RUN go mod init
+
+RUN go mod tidy
+
+RUN go mod vendor
 
 RUN go build -o gosint \
     && chmod +x gosint
